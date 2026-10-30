@@ -1,0 +1,2 @@
+# Implement Approved Batch
+Batch: [BATCH_NUMBER]. I approve the plan previously discussed. Implement the full bounded batch according to AGENTS.md, docs/REQUIREMENTS.md and docs/DESIGN_SYSTEM.md. Run available checks, fix obvious failures, update docs/PLAN.md, docs/PROGRESS.md and docs/IMPLEMENTATION_LOG.md. Report changed files, requirement IDs, checks actually run, manual tests needed, known bugs, and the next batch. Do not begin another batch.
