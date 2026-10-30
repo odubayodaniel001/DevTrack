@@ -1,6 +1,6 @@
 # DevTrack — Implementation Plan
 
-**State:** Planning approved; no application features implemented.
+**State:** Batches 1–4 implemented; Batch 4 browser verification remains manual.
 **Budget:** Limited Codex free-plan prompts. Prefer ~4–5 substantial, reviewable implementation batches, not one prompt per function.
 
 ## Batch 0 — Local setup (manual; no Codex required)
@@ -11,31 +11,31 @@
 
 ## Batch 1 — UI shell and design
 Requirements: FR-012, FR-016, FR-018, FR-019 (visual aspects)
-- [ ] Semantic HTML shell with three views and navigation
-- [ ] Light/dark CSS tokens, theme toggle and responsive layout
-- [ ] Dashboard cards, project/task UI placeholders, dialogs/forms
-- [ ] Verify layout and keyboard navigation manually
+- [x] Semantic HTML shell with three views and navigation
+- [x] Light/dark CSS tokens, theme toggle and responsive layout
+- [x] Dashboard cards, project/task UI placeholders, dialogs/forms
+- [x] User independently verified layout and browser interaction; no automated browser interaction test was run
 
 ## Batch 2 — Projects and persistence
 Requirements: FR-001–004, FR-015
-- [ ] Project data model and localStorage helpers
-- [ ] Create/edit/list/delete projects
-- [ ] Validate names, duplicates and cascade deletion
-- [ ] Verify persistence and destructive confirmations
+- [x] Project data model and versioned localStorage helpers
+- [x] Create/edit/list/delete projects with a confirmation dialog
+- [x] Validate trimmed names and case-insensitive duplicates; deletion reports actual available task count (zero until Batch 3)
+- [x] User manually verified persistence, destructive confirmation and browser behavior
 
 ## Batch 3 — Tasks and discovery
 Requirements: FR-005–011, FR-020
-- [ ] Create/edit/delete tasks and status dropdown
-- [ ] Priority, due date and overdue indicator
-- [ ] Search, status filter, project filter, empty states
-- [ ] Verify combined filters, editing and persistence
+- [x] Create/edit/delete tasks with persisted status dropdown
+- [x] Priority, due date, overdue indicator and stable project accents
+- [x] Search, project/status/priority filters, clear action and empty states
+- [x] User manually verified task workflows, combined filters and persistence
 
 ## Batch 4 — Dashboard, sample data, integration
 Requirements: FR-013, FR-014, FR-017 and integration
-- [ ] Summary counts and project-scoped metrics
-- [ ] Project completion progress bars
-- [ ] Opt-in sample data with existing-data protection
-- [ ] End-to-end interactions, theme persistence and storage errors
+- [x] Summary counts, overdue count and project-scoped metrics
+- [x] Project completion progress bars and accessible percentage text
+- [x] Opt-in additive sample data with existing-data confirmation
+- [ ] Manually verify dashboard, sample data and integration flows in a browser
 
 ## Batch 5 — QA and delivery
 - [ ] Run full `TEST_PLAN.md` manually

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#087EA4" />
+    <title>DevTrack</title>
+    <script>
+      (function () {
+        try {
+          var savedTheme = localStorage.getItem("devtrack-theme");
+          var systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          document.documentElement.dataset.theme = savedTheme === "light" || savedTheme === "dark" ? savedTheme : systemTheme;
+        } catch (error) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <a class="wordmark" href="#dashboard" data-view-link="dashboard" aria-label="DevTrack dashboard">DevTrack</a>
+        <nav class="main-navigation" aria-label="Main navigation">
+          <a class="nav-link is-active" href="#dashboard" data-view-link="dashboard" aria-current="page"><span aria-hidden="true">⌂</span> Dashboard</a>
+          <a class="nav-link" href="#projects" data-view-link="projects"><span aria-hidden="true">▣</span> Projects</a>
+          <a class="nav-link" href="#tasks" data-view-link="tasks"><span aria-hidden="true">✓</span> Tasks</a>
+        </nav>
+        <div class="sidebar-footer">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
+            <span class="theme-toggle-icon" aria-hidden="true">☾</span>
+            <span data-theme-label>Dark mode</span>
+          </button>
+        </div>
+      </aside>
+
+      <main id="main-content" class="main-content" tabindex="-1">
+        <section class="view is-active" id="dashboard" data-view="dashboard" aria-labelledby="dashboard-title">
+          <header class="page-header dashboard-header">
+            <div>
+              <p class="eyebrow">Overview</p>
+              <h1 id="dashboard-title">Welcome to DevTrack</h1>
+              <p class="page-description">Keep your projects and tasks moving forward.</p>
+            </div>
+            <div class="dashboard-actions"><label class="dashboard-filter"><span>Project scope</span><select data-dashboard-project-filter aria-label="Filter dashboard by project"><option value="">All projects</option></select></label><button class="button button-secondary" type="button" data-load-sample>Load Sample Data</button></div>
+          </header>
+          <section class="metric-grid" aria-label="Project and task summary">
+            <article class="metric-card"><span class="metric-label">Total Projects</span><strong id="total-projects-count">0</strong><span class="metric-note" id="total-projects-note">0 projects saved</span></article>
+            <article class="metric-card"><span class="metric-label">Total Tasks</span><strong data-dashboard-metric="total">0</strong><span class="metric-note" data-dashboard-scope>All projects</span></article>
+            <article class="metric-card"><span class="metric-label">Pending Tasks</span><strong data-dashboard-metric="pending">0</strong><span class="metric-note" data-dashboard-scope>All projects</span></article>
+            <article class="metric-card"><span class="metric-label">In Progress</span><strong data-dashboard-metric="in-progress">0</strong><span class="metric-note" data-dashboard-scope>All projects</span></article>
+            <article class="metric-card"><span class="metric-label">Completed Tasks</span><strong data-dashboard-metric="completed">0</strong><span class="metric-note" data-dashboard-scope>All projects</span></article>
+            <article class="metric-card"><span class="metric-label">Overdue Tasks</span><strong data-dashboard-metric="overdue">0</strong><span class="metric-note" data-dashboard-scope>All projects</span></article>
+          </section>
+          <section class="progress-panel" aria-labelledby="completion-title">
+            <div class="section-heading"><div><p class="eyebrow" data-dashboard-scope>All projects</p><h2 id="completion-title">Overall completion</h2></div><strong data-dashboard-completion>0%</strong></div>
+            <div class="progress-track" data-dashboard-progress role="progressbar" aria-label="Overall task completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0% complete"><span></span></div>
+            <p class="supporting-text" data-dashboard-progress-text>No tasks in this scope yet.</p>
+          </section>
+          <div class="dashboard-grid">
+            <section class="content-panel" aria-labelledby="overview-title"><div class="section-heading"><div><p class="eyebrow">Portfolio</p><h2 id="overview-title">Project overview</h2></div><a href="#projects" data-view-link="projects">View projects</a></div><div data-dashboard-project-overview></div></section>
+            <section class="content-panel" aria-labelledby="recent-tasks-title"><div class="section-heading"><div><p class="eyebrow">Activity</p><h2 id="recent-tasks-title">Recent tasks</h2></div><a href="#tasks" data-view-link="tasks">View tasks</a></div><div data-dashboard-recent-tasks></div></section>
+          </div>
+        </section>
+
+        <section class="view" id="projects" data-view="projects" aria-labelledby="projects-title" hidden>
+          <header class="page-header"><div><p class="eyebrow">Workspace</p><h1 id="projects-title">Projects</h1><p class="page-description">Organize the work that matters most.</p></div><button class="button button-primary" type="button" data-dialog-open="project-dialog"><span aria-hidden="true">+</span> New Project</button></header>
+          <section class="content-panel project-list" aria-label="Project list" data-project-list></section>
+        </section>
+
+        <section class="view" id="tasks" data-view="tasks" aria-labelledby="tasks-title" hidden>
+          <header class="page-header"><div><p class="eyebrow">Work queue</p><h1 id="tasks-title">Tasks</h1><p class="page-description">Plan the next step, then see it through.</p></div><button class="button button-primary" type="button" data-dialog-open="task-dialog"><span aria-hidden="true">+</span> New Task</button></header>
+          <form class="filter-bar" aria-label="Task filters" data-task-filter-form>
+            <label class="search-field"><span class="sr-only">Search tasks</span><span aria-hidden="true">⌕</span><input type="search" placeholder="Search tasks" autocomplete="off" data-task-search /></label>
+            <label><span class="sr-only">Filter by project</span><select aria-label="Filter by project" data-project-filter><option>All projects</option></select></label>
+            <label><span class="sr-only">Filter by status</span><select aria-label="Filter by status"><option value="">All statuses</option><option>Pending</option><option>In Progress</option><option>Completed</option></select></label>
+            <label><span class="sr-only">Filter by priority</span><select aria-label="Filter by priority" data-priority-filter><option value="">All priorities</option><option>Low</option><option>Medium</option><option>High</option><option>Urgent</option></select></label>
+            <button class="button button-secondary filter-clear" type="button" data-clear-task-filters>Clear filters</button>
+          </form>
+          <section class="content-panel task-list" aria-label="Task list" data-task-list></section>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="project-dialog" aria-labelledby="project-dialog-title">
+      <form class="dialog-content" id="project-form" novalidate>
+        <div class="dialog-header"><div><p class="eyebrow" data-project-dialog-eyebrow>New project</p><h2 id="project-dialog-title">Create a project</h2></div><button class="icon-button" type="button" data-dialog-close aria-label="Close project dialog">×</button></div>
+        <p class="dialog-intro" data-project-dialog-intro>Add the work you want to track.</p>
+        <p class="form-error" id="project-form-error" role="alert" aria-live="assertive" hidden></p>
+        <div class="form-field"><label for="project-name">Project name</label><input id="project-name" name="project-name" type="text" required autocomplete="off" aria-describedby="project-form-error" /></div>
+        <div class="form-field"><label for="project-description">Description <span>(optional)</span></label><textarea id="project-description" name="project-description" rows="4"></textarea></div>
+        <div class="form-field"><label for="project-status">Status</label><select id="project-status" name="project-status"><option>Planning</option><option>Active</option><option>On Hold</option><option>Completed</option></select></div>
+        <div class="dialog-actions"><button class="button button-secondary" type="button" data-dialog-close>Cancel</button><button class="button button-primary" type="submit" data-project-submit>Save project</button></div>
+      </form>
+    </dialog>
+
+    <dialog id="delete-project-dialog" aria-labelledby="delete-project-dialog-title">
+      <div class="dialog-content">
+        <div class="dialog-header"><div><p class="eyebrow">Confirm deletion</p><h2 id="delete-project-dialog-title">Delete project?</h2></div><button class="icon-button" type="button" data-dialog-close aria-label="Close deletion confirmation">×</button></div>
+        <p class="dialog-intro" id="delete-project-message"></p>
+        <div class="dialog-actions"><button class="button button-secondary" type="button" data-dialog-close>Cancel</button><button class="button button-danger" type="button" data-delete-project-confirm>Delete project</button></div>
+      </div>
+    </dialog>
+
+    <dialog id="task-dialog" aria-labelledby="task-dialog-title">
+      <form class="dialog-content" id="task-form" novalidate>
+        <div class="dialog-header"><div><p class="eyebrow" data-task-dialog-eyebrow>New task</p><h2 id="task-dialog-title">Create a task</h2></div><button class="icon-button" type="button" data-dialog-close aria-label="Close task dialog">×</button></div>
+        <p class="dialog-intro" data-task-dialog-intro>Break your project into an actionable next step.</p>
+        <p class="form-error" id="task-form-error" role="alert" aria-live="assertive" hidden></p>
+        <div class="form-field"><label for="task-title">Title</label><input id="task-title" name="task-title" type="text" required autocomplete="off" aria-describedby="task-form-error" /></div>
+        <div class="form-field"><label for="task-description">Description <span>(optional)</span></label><textarea id="task-description" name="task-description" rows="3"></textarea></div>
+        <div class="form-grid"><div class="form-field"><label for="task-project">Project</label><select id="task-project" name="task-project" required><option value="">Select a project</option></select></div><div class="form-field"><label for="task-status">Status</label><select id="task-status" name="task-status"><option>Pending</option><option>In Progress</option><option>Completed</option></select></div><div class="form-field"><label for="task-priority">Priority</label><select id="task-priority" name="task-priority"><option>Low</option><option selected>Medium</option><option>High</option><option>Urgent</option></select></div><div class="form-field"><label for="task-due-date">Due date <span>(optional)</span></label><input id="task-due-date" name="task-due-date" type="date" /></div></div>
+        <div class="dialog-actions"><button class="button button-secondary" type="button" data-dialog-close>Cancel</button><button class="button button-primary" type="submit" data-task-submit>Save task</button></div>
+      </form>
+    </dialog>
+
+    <dialog id="delete-task-dialog" aria-labelledby="delete-task-dialog-title">
+      <div class="dialog-content">
+        <div class="dialog-header"><div><p class="eyebrow">Confirm deletion</p><h2 id="delete-task-dialog-title">Delete task?</h2></div><button class="icon-button" type="button" data-dialog-close aria-label="Close task deletion confirmation">×</button></div>
+        <p class="dialog-intro" id="delete-task-message"></p>
+        <div class="dialog-actions"><button class="button button-secondary" type="button" data-dialog-close>Cancel</button><button class="button button-danger" type="button" data-delete-task-confirm>Delete task</button></div>
+      </div>
+    </dialog>
+
+    <dialog id="sample-data-dialog" aria-labelledby="sample-data-dialog-title">
+      <div class="dialog-content">
+        <div class="dialog-header"><div><p class="eyebrow">Sample data</p><h2 id="sample-data-dialog-title">Add sample data?</h2></div><button class="icon-button" type="button" data-dialog-close aria-label="Close sample data confirmation">×</button></div>
+        <p class="dialog-intro" id="sample-data-message"></p>
+        <div class="dialog-actions"><button class="button button-secondary" type="button" data-dialog-close>Cancel</button><button class="button button-primary" type="button" data-confirm-sample>Load sample data</button></div>
+      </div>
+    </dialog>
+    <script src="script.js"></script>
+  </body>
+</html>

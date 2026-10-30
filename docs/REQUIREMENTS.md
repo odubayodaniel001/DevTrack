@@ -63,5 +63,17 @@ Cloud sync, multi-user access, authentication, export/import, drag-and-drop Kanb
 - Keep storage schema explicit and validation defensive.
 - Dates are local calendar dates (`YYYY-MM-DD`) rather than UTC instants for overdue comparisons.
 
+## Batch 3 implementation details
+- Tasks use the versioned `devtrack-v1-tasks` localStorage key and reference projects by stable project ID.
+- Each task stores `id`, `title`, `description`, `projectId`, `status`, `priority`, `dueDate`, `createdAt` and `updatedAt`.
+- Project deletion removes only tasks whose `projectId` matches the deleted project; its confirmation count is calculated from the stored task collection.
+- Project accent indicators are deterministically derived from project IDs using the documented curated palette, so they remain stable without changing saved project records.
+
+## Batch 4 implementation details
+- Dashboard task counts, overdue count and overall completion are calculated from the same current task collection used by the task list.
+- The dashboard project selector scopes task-based metrics, recent tasks and completion while the total-project count remains global.
+- Project-card progress is calculated from completed associated tasks and displays `0%` for empty projects.
+- Sample data is explicitly user-triggered. It adds a coherent, marked sample set without replacing existing records; a confirmation is required when data already exists and repeat loading is prevented.
+
 ## Acceptance testing
 Detailed cases and evidence checklist live in `TEST_PLAN.md`.

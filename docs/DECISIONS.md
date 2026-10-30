@@ -21,6 +21,8 @@ All entries below are approved by the user unless marked `Proposed`.
 | DEC-015 | Inter; text-only wordmark; modern, restrained visual style | Clean developer productivity identity |
 | DEC-016 | No fixed delivery deadline | Quality-first staged implementation |
 | DEC-017 | No JSON backup/export in MVP | Scope control |
+| DEC-018 | Derive project accent colors deterministically from project IDs | Keeps project identification stable without adding a user-managed color setting or migrating saved projects |
+| DEC-019 | Sample data appends after confirmation when data exists | Protects user records while preserving an easy way to explore the application |
 
 ## Trade-offs
 - localStorage is browser-specific, not synced or backed up; clearing site data can remove work.

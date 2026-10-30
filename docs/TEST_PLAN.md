@@ -1,6 +1,6 @@
 # DevTrack — Test Plan
 
-Record each test as Pass / Fail / Not Tested, with date and evidence. No tests have run yet.
+Record each test as Pass / Fail / Not Tested, with date and evidence. The user reported successful manual browser checks for Batches 1–3, but no case-level evidence is recorded here. Batch 4 cases remain Not Tested until manually recorded.
 
 | ID | Scenario | Expected |
 |---|---|---|
@@ -32,6 +32,13 @@ Record each test as Pass / Fail / Not Tested, with date and evidence. No tests h
 | T-26 | Corrupted storage payload | Graceful error; no silent overwrite |
 | T-27 | Browser storage unavailable | Informative error; app does not crash |
 | T-28 | Reload after deletion | Deleted records stay deleted |
+| T-29 | Filter by priority and search task description | Combined matching tasks shown without storage changes |
+| T-30 | Task due today | Not marked overdue |
+| T-31 | Project accent after edit and refresh | Same project ID retains its accent |
+| T-32 | Dashboard metrics and project scope | Counts and completion match the selected scope; total projects remains global |
+| T-33 | Project progress | Empty, partial and completed projects display correct percentages |
+| T-34 | Load sample data on empty app | Example projects/tasks appear only after explicit action |
+| T-35 | Load sample data with existing records | Confirmation appears; existing records remain and sample data is added once |
 
 ## Manual test record template
 - Test ID:
